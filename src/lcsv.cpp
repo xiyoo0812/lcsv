@@ -12,8 +12,7 @@ using namespace luakit;
 namespace lcsv {
 
     inline void decode_value(lua_State* L, string key) {
-        const char* value = key.data();
-        if (lua_stringtonumber(L, value) == 0) {
+        if (const char* value = key.data(); lua_stringtonumber(L, value) == 0) {
             lua_pushlstring(L, value, key.length());
         }
     }
@@ -178,22 +177,16 @@ namespace lcsv {
         csv.set_function("read", read_csv);
         csv.set_function("save", save_csv);
         csv.set_function("open", open_csv);
-        kit_state.new_class<cell>(
-            "type", &cell::type,
-            "value", &cell::value
-            );
-        kit_state.new_class<sheet>(
-            "name", &sheet::name,
-            "last_row", &sheet::last_row,
-            "last_col", &sheet::last_col,
-            "first_row", &sheet::first_row,
-            "first_col", &sheet::first_col,
-            "get_cell", &sheet::get_cell
-            );
+        kit_state.new_class<workbook>(
+            "name", &workbook::name,
+            "last_row", &workbook::last_row,
+            "last_col", &workbook::last_col,
+            "get_cell_value", &workbook::get_cell_value
+        );
         kit_state.new_class<csv_file>(
-            "sheets", &csv_file::sheets,
-            "get_sheet", &csv_file::get_sheet
-            );
+            "open", &csv_file::open_workbook,
+            "workbooks", &csv_file::all_workbooks
+        );
         return csv;
     }
 }
