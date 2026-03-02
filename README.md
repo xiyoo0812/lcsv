@@ -1,4 +1,4 @@
-# lcsv
+# luacsv
 lua bindings for csv.
 
 # 依赖
@@ -8,12 +8,12 @@ lua bindings for csv.
 - 项目路径如下<br>
   |--proj <br>
   &emsp;|--lua <br>
-  &emsp;|--lcsv <br>
+  &emsp;|--luacsv <br>
   &emsp;|--luakit
 
 # 接口说明
 ```lua
-local csv = require("lcsv")
+local csv = require("luacsv")
 --编码
 --value: 输入的lua table
 --res：输出csv字符串
@@ -47,7 +47,7 @@ local flua, ferr = csv.open("./bb.xml")
 --csv_test.lua
 --luacheck: ignore 631
 
-require("lcsv")
+require("luacsv")
 
 local log_dump  = logger.dump
 
@@ -58,15 +58,15 @@ a,b,c,d
 ]]
 
 local xlua = csv.decode(csvdata, 1)
-log_dump("lcsv decode csv:{}",  xlua)
+log_dump("luacsv decode csv:{}",  xlua)
 
 local yxml = csv.encode(xlua)
-log_dump("lcsv encode csv:{}", yxml)
+log_dump("luacsv encode csv:{}", yxml)
 
 local ok = csv.save("./bb.csv", xlua)
-log_dump("lcsv save csv:{}", ok)
+log_dump("luacsv save csv:{}", ok)
 
 local flua = csv.read("./bb.csv")
-log_dump("lcsv read csv:{}", flua)
+log_dump("luacsv read csv:{}", flua)
 
 ```
